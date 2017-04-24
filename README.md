@@ -1,3 +1,3 @@
 Bulletin
 
-Description: It is basically a small news app giving all news live from all over the world by using API of newsapi.org
+Description: An android app which give live news from all over the world. It uses an API of newsapi.org
