@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class General extends Fragment {
     private RecyclerView recyclerView;
 
     public General() {
-        // Required empty public constructor
     }
 
 
@@ -44,7 +42,7 @@ public class General extends Fragment {
         View view = inflater.inflate(R.layout.fragment_general, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.general_recycler_view);
 
-       FetchLists f = new FetchLists();
+        FetchLists f = new FetchLists();
         f.execute(10, 0);
         return view;
 
@@ -78,7 +76,6 @@ public class General extends Fragment {
 
 
                 JSONArray emailLists = object.getJSONArray("articles");
-//                Log.d("ashu","lists are: "+lists);
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
@@ -87,9 +84,6 @@ public class General extends Fragment {
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
 
-                    Log.d("ashu", "author is " + stringList.authorName);
-                    Log.d("ashu", "headline is " + stringList.headline);
-                    Log.d("ashu", "time is " + stringList.publishedTime);
                     generalNews.add(stringList);
                 }
 
@@ -114,8 +108,8 @@ public class General extends Fragment {
 
     public class GeneralAdapter extends RecyclerView.Adapter<GeneralHolder> {
 
+        int prevposition = 0;
         private List<StringList> c;
-        int prevposition=0;
 
         public GeneralAdapter(General context, List<StringList> result) {
             c = context.generalNews;
@@ -173,10 +167,10 @@ public class General extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    BusinessDetail s=new BusinessDetail();
+                    BusinessDetail s = new BusinessDetail();
 
-                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame,s);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content_frame, s);
                     transaction.addToBackStack(null);
                     transaction.commit();
 

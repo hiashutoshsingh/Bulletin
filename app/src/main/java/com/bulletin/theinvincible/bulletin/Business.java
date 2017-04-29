@@ -32,8 +32,6 @@ public class Business extends Fragment  {
     private RecyclerView recyclerView;
 
     public Business() {
-        Log.d("ashu", "default constructor is found: ");
-
     }
 
     @Override
@@ -195,14 +193,7 @@ public class Business extends Fragment  {
                 public void onClick(View view) {
 
                     Log.d("ashu", "Business author name is: " + stringList.authorName);
-                    Log.d("ashu", "business position is: " + position);
-
                     SendData.sendValue(stringList, position);
-
-//                    Business business = new Business();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("news", stringList.authorName);
-//                    business.setArguments(bundle);
 
                     BusinessDetail s = new BusinessDetail();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();

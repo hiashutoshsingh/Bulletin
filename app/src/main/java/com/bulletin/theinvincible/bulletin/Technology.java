@@ -31,7 +31,6 @@ public class Technology extends Fragment {
     private RecyclerView recyclerView;
 
     public Technology() {
-        // Required empty public constructor
     }
 
 
@@ -77,7 +76,6 @@ public class Technology extends Fragment {
 
 
                 JSONArray emailLists = object.getJSONArray("articles");
-//                Log.d("ashu","lists are: "+lists);
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
@@ -85,7 +83,7 @@ public class Technology extends Fragment {
                     stringList.authorName = listData.getString("author");
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
-//
+
                     technologyNews.add(stringList);
                 }
 
@@ -110,8 +108,8 @@ public class Technology extends Fragment {
 
     public class TechnologyAdapter extends RecyclerView.Adapter<TechnologyHolder> {
 
+        int prevposition = 0;
         private List<StringList> c;
-        int prevposition=0;
 
         public TechnologyAdapter(Technology context, List<StringList> result) {
             c = context.technologyNews;

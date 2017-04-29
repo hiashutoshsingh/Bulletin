@@ -33,7 +33,6 @@ public class Sport extends Fragment {
     private RecyclerView recyclerView;
 
     public Sport() {
-        // Required empty public constructor
     }
 
     @Override
@@ -74,10 +73,7 @@ public class Sport extends Fragment {
                 }
 
                 JSONObject object = new JSONObject(response);
-
-
                 JSONArray emailLists = object.getJSONArray("articles");
-//                Log.d("ashu","lists are: "+lists);
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
@@ -86,9 +82,6 @@ public class Sport extends Fragment {
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
 
-                    Log.d("ashu", "author is " + stringList.authorName);
-                    Log.d("ashu", "headline is " + stringList.headline);
-                    Log.d("ashu", "time is " + stringList.publishedTime);
                     sportsNews.add(stringList);
                 }
 

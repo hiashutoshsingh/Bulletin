@@ -11,15 +11,11 @@ import android.widget.TextView;
 
 public class BusinessDetail extends Fragment {
 
-    String value1;
-    Bundle bundle;
+
     StringList mstringList;
-    String authorname;
-    //    String value1 = bundle.getString("news");
     private TextView headlineSecond;
     private TextView authorSecond;
     private TextView detailsSecond;
-    //private List<StringList> s;
 
     public BusinessDetail() {
 
@@ -34,7 +30,6 @@ public class BusinessDetail extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Log.d("ashu", "BusinessDe string is: " + mstringList.authorName);
     }
 
     @Override
@@ -51,7 +46,7 @@ public class BusinessDetail extends Fragment {
         headlineSecond = (TextView) view.findViewById(R.id.id_headline_second);
         authorSecond = (TextView) view.findViewById(R.id.id_author_second);
         detailsSecond = (TextView) view.findViewById(R.id.id_details_second);
-        Log.d("ashu", "on view created me aa gaya");
+
     }
 }
 

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class Entertainment extends Fragment {
     private RecyclerView recyclerView;
 
     public Entertainment() {
-        // Required empty public constructor
     }
 
 
@@ -76,7 +74,6 @@ public class Entertainment extends Fragment {
 
 
                 JSONArray emailLists = object.getJSONArray("articles");
-//                Log.d("ashu","lists are: "+lists);
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
@@ -85,9 +82,6 @@ public class Entertainment extends Fragment {
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
 
-                    Log.d("ashu", "author is " + stringList.authorName);
-                    Log.d("ashu", "headline is " + stringList.headline);
-                    Log.d("ashu", "time is " + stringList.publishedTime);
                     entertainmentNews.add(stringList);
                 }
 
@@ -112,8 +106,9 @@ public class Entertainment extends Fragment {
 
     public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentHolder> {
 
+        int prevposition = 0;
         private List<StringList> c;
-int prevposition=0;
+
         public EntertainmentAdapter(Entertainment context, List<StringList> result) {
             c = context.entertainmentNews;
 
@@ -170,10 +165,10 @@ int prevposition=0;
                 @Override
                 public void onClick(View view) {
 
-                    BusinessDetail s=new BusinessDetail();
+                    BusinessDetail s = new BusinessDetail();
 
-                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame,s);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content_frame, s);
                     transaction.addToBackStack(null);
                     transaction.commit();
 
