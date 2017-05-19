@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -164,20 +163,20 @@ public class Technology extends Fragment {
             authorTextview = (TextView) itemView.findViewById(R.id.id_author);
             timeTextview = (TextView) itemView.findViewById(R.id.id_time);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    BusinessDetail s = new BusinessDetail();
-
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.content_frame, s);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-
-
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    BusinessDetail s = new BusinessDetail();
+//
+//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.content_frame, s);
+//                    transaction.addToBackStack(null);
+//                    transaction.commit();
+//
+//
+//                }
+//            });
 
         }
 
