@@ -3,7 +3,6 @@ package com.bulletin.theinvincible.bulletin;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Business.TransferValue {
+        implements NavigationView.OnNavigationItemSelectedListener,  General.Transfer {
     FragmentManager frag;
+    Bundle bundle;
+    StringList mStringList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -69,13 +71,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_sport) {
             frag.beginTransaction().replace(R.id.content_frame, new Sport()).commit();
-
         } else if (id == R.id.nav_entertainment) {
             frag.beginTransaction().replace(R.id.content_frame, new Entertainment()).commit();
         } else if (id == R.id.nav_general) {
             frag.beginTransaction().replace(R.id.content_frame, new General()).commit();
         } else if (id == R.id.nav_business) {
-            frag.beginTransaction().replace(R.id.content_frame, new Business()).commit();
+            Business business = new Business();
+
+            frag.beginTransaction().replace(R.id.content_frame, business).commit();
         } else if (id == R.id.nav_techno) {
             frag.beginTransaction().replace(R.id.content_frame, new Technology()).commit();
         }
@@ -86,21 +89,27 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+//    @Override
+//    public void send(StringList stringList) {
+////        Log.d("ashu", "stronglist value in mainactivity business " + stringList);
+////        bundle = new Bundle();
+////        bundle.putParcelable("businessnews", stringList);
+//        BusinessDetail businessDetail = new BusinessDetail();
+////        businessDetail.setArguments(bundle);
+//        frag = getSupportFragmentManager();
+//        frag.beginTransaction().replace(R.id.content_frame, businessDetail).commit();
+//    }
+
+
     @Override
-    public void sendValue(StringList value, int positionValue) {
-
-        Log.d("ashu", "Main Activity pressed itemView");
-        Log.d("ashu", " Main Activity string received: " + value + "Main Activity position received: " + positionValue);
-        Log.d("ashu", "Main Activity author name: " + value.authorName);
-
-
-        if (frag.findFragmentById(R.id.content_frame) != null) {
-            BusinessDetail businessDetail = new BusinessDetail();
-            FragmentTransaction transaction = frag.beginTransaction();
-            businessDetail.receiveValue(value, positionValue);
-            transaction.replace(R.id.content_frame, businessDetail);
-            transaction.commit();
-        }
+    public void senda(StringList stringList) {
+        Log.d("ashu", "stronglist value in mainactivity genral " + stringList);
+        bundle = new Bundle();
+        bundle.putParcelable("generalnews", stringList);
+        GeneralDetail generalDetail = new GeneralDetail();
+        generalDetail.setArguments(bundle);
+        frag = getSupportFragmentManager();
+        frag.beginTransaction().replace(R.id.content_frame, generalDetail).commit();
 
     }
 }

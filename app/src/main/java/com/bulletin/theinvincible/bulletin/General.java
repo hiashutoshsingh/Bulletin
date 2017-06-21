@@ -4,9 +4,11 @@ package com.bulletin.theinvincible.bulletin;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import java.util.List;
 public class General extends Fragment {
 
     public List<StringList> generalNews = new ArrayList<>();
+    Transfer transfer;
+    StringList stringList;
     private RecyclerView recyclerView;
 
     public General() {
@@ -45,6 +49,22 @@ public class General extends Fragment {
         f.execute(10, 0);
         return view;
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            transfer = (Transfer) context;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException("null object refernece");
+
+        }
+    }
+
+    public interface Transfer {
+        public void senda(StringList stringList);
     }
 
     public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
@@ -78,7 +98,7 @@ public class General extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    StringList stringList = new StringList();
+                    stringList = new StringList(Parcel.obtain());
                     stringList.authorName = listData.getString("author");
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
@@ -121,7 +141,6 @@ public class General extends Fragment {
             Context context = parent.getContext();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.layout_news, parent, false);
-
             return new GeneralHolder(view);
         }
 
@@ -147,13 +166,12 @@ public class General extends Fragment {
         }
     }
 
-
     public class GeneralHolder extends RecyclerView.ViewHolder {
 
         public TextView headlineTextview;
         public TextView authorTextview;
         public TextView timeTextview;
-        private StringList chimpList;
+
 
         public GeneralHolder(View itemView) {
             super(itemView);
@@ -162,35 +180,25 @@ public class General extends Fragment {
             authorTextview = (TextView) itemView.findViewById(R.id.id_author);
             timeTextview = (TextView) itemView.findViewById(R.id.id_time);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    BusinessDetail s = new BusinessDetail();
-//
-//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.content_frame, s);
-//                    transaction.addToBackStack(null);
-//                    transaction.commit();
-//
-//
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    transfer.senda(stringList);
+                    Log.d("ashu","general onclick stringlist value: "+stringList);
+
+                }
+            });
 
         }
 
         public void bindListName(StringList stringList) {
 
-            chimpList = stringList;
             headlineTextview.setText(stringList.headline);
             authorTextview.setText(stringList.authorName);
             timeTextview.setText(stringList.publishedTime);
 
         }
-
-
     }
-
 }
 
 

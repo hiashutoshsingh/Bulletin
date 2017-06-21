@@ -46,6 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:padding="5dp"
             android:text="ashu"
             android:textColor="#131313"

@@ -12,24 +12,27 @@ import android.widget.TextView;
 public class BusinessDetail extends Fragment {
 
 
-    StringList mstringList;
+    public TextView authorSecond;
+    StringList stringList;
     private TextView headlineSecond;
-    private TextView authorSecond;
     private TextView detailsSecond;
 
+
     public BusinessDetail() {
-
+//        BusinessDetail businessDetail=new BusinessDetail(bundle);
+//        businessDetail.setArguments(bundle);
+//        return businessDetail;
     }
 
-    public void receiveValue(StringList value, int positionValue) {
-        mstringList = value;
-        Log.d("ashu", "BusinessDe string is: " + mstringList.authorName);
 
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        stringList = (StringList) bundle.getParcelable("news");
+        Log.d("ashu","see this "+stringList.authorName);
+
     }
 
     @Override
@@ -43,11 +46,29 @@ public class BusinessDetail extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         headlineSecond = (TextView) view.findViewById(R.id.id_headline_second);
         authorSecond = (TextView) view.findViewById(R.id.id_author_second);
         detailsSecond = (TextView) view.findViewById(R.id.id_details_second);
 
+        Log.d("ashu","see this again+ "+stringList.authorName);
+
+//        Bundle bundle = getArguments();
+//
+//        if (bundle == null || !bundle.containsKey("businessnews")) {
+//            throw new IllegalArgumentException("stringlist should not be null");
+//        }
+//        StringList stringList = bundle.getParcelable("businessnews");
+//        StringList stringList = ((MainActivity) getActivity()).getStringList();
+//        Log.d("ashu", "stringlist value business detail" + stringList);
+
+
+        authorSecond.setText(stringList.authorName);
+        headlineSecond.setText(stringList.headline);
+        detailsSecond.setText(stringList.newsDetail);
     }
+
+
 }
 
 

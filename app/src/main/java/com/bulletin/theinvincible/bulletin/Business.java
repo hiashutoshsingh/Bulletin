@@ -3,8 +3,10 @@ package com.bulletin.theinvincible.bulletin;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,10 +26,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Business extends Fragment  {
+public class Business extends Fragment {
 
     public List<StringList> businessNews = new ArrayList<>();
-    TransferValue SendData;
+    StringList stringList;
+    //    Transfer transfer;
     private RecyclerView recyclerView;
 
     public Business() {
@@ -55,18 +58,16 @@ public class Business extends Fragment  {
         super.onAttach(context);
 
         try {
-            SendData = (TransferValue) context;
+//            transfer = (Transfer) context;
         } catch (ClassCastException e) {
-            Log.d("ashu", "implement the methods");
             throw new ClassCastException("implemented the methods");
         }
     }
 
-    public interface TransferValue {
-
-        public void sendValue(StringList value, int positionValue);
-
-    }
+//    public interface Transfer {
+//         void send(StringList stringList);
+//
+//    }
 
     public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
 
@@ -98,7 +99,7 @@ public class Business extends Fragment  {
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
 
-                    StringList stringList = new StringList();
+                    stringList = new StringList(Parcel.obtain());
                     stringList.authorName = listData.getString("author");
                     stringList.headline = listData.getString("title");
                     stringList.publishedTime = listData.getString("publishedAt");
@@ -140,7 +141,6 @@ public class Business extends Fragment  {
             Context context = parent.getContext();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.layout_news, parent, false);
-
             return new BusinessHolder(view);
         }
 
@@ -149,6 +149,8 @@ public class Business extends Fragment  {
 
             StringList m = c.get(position);
             holder.bindListName(m, position);
+
+
 
             if (position > prevposition) {
 
@@ -179,6 +181,29 @@ public class Business extends Fragment  {
             authorTextview = (TextView) itemView.findViewById(R.id.id_author);
             timeTextview = (TextView) itemView.findViewById(R.id.id_time);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    BusinessDetail businessDetail = new BusinessDetail();
+
+
+                    Bundle bundle = new Bundle();
+                    stringList = new StringList(Parcel.obtain());
+                    Log.d("ashu","see "+stringList.authorName);
+                    bundle.putParcelable("news", stringList);
+                    businessDetail.setArguments(bundle);
+                    transaction.replace(R.id.content_frame, businessDetail);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+// transfer.send(stringList);
+//                    Log.d("ashu","business onclick stringlist value: "+stringList);
+                }
+            });
+
         }
 
         public void bindListName(final StringList stringList, final int position) {
@@ -187,20 +212,6 @@ public class Business extends Fragment  {
             authorTextview.setText(stringList.authorName);
             timeTextview.setText(stringList.publishedTime);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    Log.d("ashu", "Business author name is: " + stringList.authorName);
-//                    SendData.sendValue(stringList, position);
-//
-//                    BusinessDetail s = new BusinessDetail();
-//                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.content_frame, s);
-//                    transaction.addToBackStack(null);
-//                    transaction.commit();
-//                }
-//            });
         }
     }
 
