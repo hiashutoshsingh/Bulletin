@@ -27,7 +27,7 @@ import java.util.List;
 public class Entertainment extends Fragment {
 
 
-    public List<StringList> entertainmentNews = new ArrayList<>();
+    public List<ModelString> entertainmentNews = new ArrayList<>();
     private RecyclerView recyclerView;
 
     public Entertainment() {
@@ -46,10 +46,10 @@ public class Entertainment extends Fragment {
         return view;
     }
 
-    public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
+    public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
         @Override
-        protected List<StringList> doInBackground(Integer... params) {
+        protected List<ModelString> doInBackground(Integer... params) {
 
             int count = params[0];
             int offset = params[1];
@@ -77,12 +77,12 @@ public class Entertainment extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    StringList stringList = new StringList(Parcel.obtain());
-                    stringList.authorName = listData.getString("author");
-                    stringList.headline = listData.getString("title");
-                    stringList.publishedTime = listData.getString("publishedAt");
+                    ModelString modelString = new ModelString(Parcel.obtain());
+                    modelString.authorName = listData.getString("author");
+                    modelString.headline = listData.getString("title");
+                    modelString.publishedTime = listData.getString("publishedAt");
 
-                    entertainmentNews.add(stringList);
+                    entertainmentNews.add(modelString);
                 }
 
             } catch (Exception e) {
@@ -94,7 +94,7 @@ public class Entertainment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<StringList> result) {
+        protected void onPostExecute(List<ModelString> result) {
             super.onPostExecute(result);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -107,9 +107,9 @@ public class Entertainment extends Fragment {
     public class EntertainmentAdapter extends RecyclerView.Adapter<EntertainmentHolder> {
 
         int prevposition = 0;
-        private List<StringList> c;
+        private List<ModelString> c;
 
-        public EntertainmentAdapter(Entertainment context, List<StringList> result) {
+        public EntertainmentAdapter(Entertainment context, List<ModelString> result) {
             c = context.entertainmentNews;
 
         }
@@ -127,7 +127,7 @@ public class Entertainment extends Fragment {
         @Override
         public void onBindViewHolder(EntertainmentHolder holder, int position) {
 
-            StringList m = c.get(position);
+            ModelString m = c.get(position);
             holder.bindListName(m);
 
             if (position > prevposition) {
@@ -152,7 +152,7 @@ public class Entertainment extends Fragment {
         public TextView headlineTextview;
         public TextView authorTextview;
         public TextView timeTextview;
-        private StringList chimpList;
+        private ModelString chimpList;
 
         public EntertainmentHolder(View itemView) {
             super(itemView);
@@ -178,12 +178,12 @@ public class Entertainment extends Fragment {
 
         }
 
-        public void bindListName(StringList stringList) {
+        public void bindListName(ModelString modelString) {
 
-            chimpList = stringList;
-            headlineTextview.setText(stringList.headline);
-            authorTextview.setText(stringList.authorName);
-            timeTextview.setText(stringList.publishedTime);
+            chimpList = modelString;
+            headlineTextview.setText(modelString.headline);
+            authorTextview.setText(modelString.authorName);
+            timeTextview.setText(modelString.publishedTime);
 
         }
 

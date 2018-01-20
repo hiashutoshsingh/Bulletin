@@ -28,9 +28,9 @@ import java.util.List;
 
 public class General extends Fragment {
 
-    public List<StringList> generalNews = new ArrayList<>();
+    public List<ModelString> generalNews = new ArrayList<>();
     Transfer transfer;
-    StringList stringList;
+    ModelString modelString;
     private RecyclerView recyclerView;
 
     public General() {
@@ -64,13 +64,13 @@ public class General extends Fragment {
     }
 
     public interface Transfer {
-        public void senda(StringList stringList);
+        public void senda(ModelString modelString);
     }
 
-    public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
+    public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
         @Override
-        protected List<StringList> doInBackground(Integer... params) {
+        protected List<ModelString> doInBackground(Integer... params) {
 
             int count = params[0];
             int offset = params[1];
@@ -98,12 +98,12 @@ public class General extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    stringList = new StringList(Parcel.obtain());
-                    stringList.authorName = listData.getString("author");
-                    stringList.headline = listData.getString("title");
-                    stringList.publishedTime = listData.getString("publishedAt");
+                    modelString = new ModelString(Parcel.obtain());
+                    modelString.authorName = listData.getString("author");
+                    modelString.headline = listData.getString("title");
+                    modelString.publishedTime = listData.getString("publishedAt");
 
-                    generalNews.add(stringList);
+                    generalNews.add(modelString);
                 }
 
             } catch (Exception e) {
@@ -115,7 +115,7 @@ public class General extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<StringList> result) {
+        protected void onPostExecute(List<ModelString> result) {
             super.onPostExecute(result);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -128,9 +128,9 @@ public class General extends Fragment {
     public class GeneralAdapter extends RecyclerView.Adapter<GeneralHolder> {
 
         int prevposition = 0;
-        private List<StringList> c;
+        private List<ModelString> c;
 
-        public GeneralAdapter(General context, List<StringList> result) {
+        public GeneralAdapter(General context, List<ModelString> result) {
             c = context.generalNews;
 
         }
@@ -147,7 +147,7 @@ public class General extends Fragment {
         @Override
         public void onBindViewHolder(GeneralHolder holder, int position) {
 
-            StringList m = c.get(position);
+            ModelString m = c.get(position);
             holder.bindListName(m);
 
             if (position > prevposition) {
@@ -183,19 +183,19 @@ public class General extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    transfer.senda(stringList);
-                    Log.d("ashu","general onclick stringlist value: "+stringList);
+                    transfer.senda(modelString);
+                    Log.d("ashu","general onclick stringlist value: "+ modelString);
 
                 }
             });
 
         }
 
-        public void bindListName(StringList stringList) {
+        public void bindListName(ModelString modelString) {
 
-            headlineTextview.setText(stringList.headline);
-            authorTextview.setText(stringList.authorName);
-            timeTextview.setText(stringList.publishedTime);
+            headlineTextview.setText(modelString.headline);
+            authorTextview.setText(modelString.authorName);
+            timeTextview.setText(modelString.publishedTime);
 
         }
     }

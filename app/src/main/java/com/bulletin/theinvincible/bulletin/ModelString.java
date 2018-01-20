@@ -3,29 +3,29 @@ package com.bulletin.theinvincible.bulletin;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class StringList implements Parcelable{
+public class ModelString implements Parcelable{
 
     public String authorName;
     public String headline;
     public String publishedTime;
     public String newsDetail;
 
-    protected StringList(Parcel in) {
+    protected ModelString(Parcel in) {
         authorName = in.readString();
         headline = in.readString();
         publishedTime = in.readString();
         newsDetail = in.readString();
     }
 
-    public static final Parcelable.Creator<StringList> CREATOR = new Parcelable.Creator<StringList>() {
+    public static final Parcelable.Creator<ModelString> CREATOR = new Parcelable.Creator<ModelString>() {
         @Override
-        public StringList createFromParcel(Parcel in) {
-            return new StringList(in);
+        public ModelString createFromParcel(Parcel in) {
+            return new ModelString(in);
         }
 
         @Override
-        public StringList[] newArray(int size) {
-            return new StringList[size];
+        public ModelString[] newArray(int size) {
+            return new ModelString[size];
         }
     };
 

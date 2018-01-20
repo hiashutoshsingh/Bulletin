@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Technology extends Fragment {
 
-    public List<StringList> technologyNews = new ArrayList<>();
+    public List<ModelString> technologyNews = new ArrayList<>();
     private RecyclerView recyclerView;
 
     public Technology() {
@@ -48,10 +48,10 @@ public class Technology extends Fragment {
     }
 
 
-    public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
+    public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
         @Override
-        protected List<StringList> doInBackground(Integer... params) {
+        protected List<ModelString> doInBackground(Integer... params) {
 
             int count = params[0];
             int offset = params[1];
@@ -79,12 +79,12 @@ public class Technology extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    StringList stringList = new StringList(Parcel.obtain());
-                    stringList.authorName = listData.getString("author");
-                    stringList.headline = listData.getString("title");
-                    stringList.publishedTime = listData.getString("publishedAt");
+                    ModelString modelString = new ModelString(Parcel.obtain());
+                    modelString.authorName = listData.getString("author");
+                    modelString.headline = listData.getString("title");
+                    modelString.publishedTime = listData.getString("publishedAt");
 
-                    technologyNews.add(stringList);
+                    technologyNews.add(modelString);
                 }
 
             } catch (Exception e) {
@@ -96,7 +96,7 @@ public class Technology extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<StringList> result) {
+        protected void onPostExecute(List<ModelString> result) {
             super.onPostExecute(result);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -109,9 +109,9 @@ public class Technology extends Fragment {
     public class TechnologyAdapter extends RecyclerView.Adapter<TechnologyHolder> {
 
         int prevposition = 0;
-        private List<StringList> c;
+        private List<ModelString> c;
 
-        public TechnologyAdapter(Technology context, List<StringList> result) {
+        public TechnologyAdapter(Technology context, List<ModelString> result) {
             c = context.technologyNews;
 
         }
@@ -129,7 +129,7 @@ public class Technology extends Fragment {
         @Override
         public void onBindViewHolder(TechnologyHolder holder, int position) {
 
-            StringList m = c.get(position);
+            ModelString m = c.get(position);
             holder.bindListName(m);
 
 
@@ -155,7 +155,7 @@ public class Technology extends Fragment {
         public TextView headlineTextview;
         public TextView authorTextview;
         public TextView timeTextview;
-        private StringList chimpList;
+        private ModelString chimpList;
 
         public TechnologyHolder(View itemView) {
             super(itemView);
@@ -181,12 +181,12 @@ public class Technology extends Fragment {
 
         }
 
-        public void bindListName(StringList stringList) {
+        public void bindListName(ModelString modelString) {
 
-            chimpList = stringList;
-            headlineTextview.setText(stringList.headline);
-            authorTextview.setText(stringList.authorName);
-            timeTextview.setText(stringList.publishedTime);
+            chimpList = modelString;
+            headlineTextview.setText(modelString.headline);
+            authorTextview.setText(modelString.authorName);
+            timeTextview.setText(modelString.publishedTime);
 
         }
 

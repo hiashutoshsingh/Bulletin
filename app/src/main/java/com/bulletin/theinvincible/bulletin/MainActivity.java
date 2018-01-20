@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,  General.Transfer {
     FragmentManager frag;
     Bundle bundle;
-    StringList mStringList;
+    ModelString mModelString;
 
 
     @Override
@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity
 
 
 //    @Override
-//    public void send(StringList stringList) {
-////        Log.d("ashu", "stronglist value in mainactivity business " + stringList);
+//    public void send(ModelString modelString) {
+////        Log.d("ashu", "stronglist value in mainactivity business " + modelString);
 ////        bundle = new Bundle();
-////        bundle.putParcelable("businessnews", stringList);
+////        bundle.putParcelable("businessnews", modelString);
 //        BusinessDetail businessDetail = new BusinessDetail();
 ////        businessDetail.setArguments(bundle);
 //        frag = getSupportFragmentManager();
@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void senda(StringList stringList) {
-        Log.d("ashu", "stronglist value in mainactivity genral " + stringList);
+    public void senda(ModelString modelString) {
+        Log.d("ashu", "stronglist value in mainactivity genral " + modelString);
         bundle = new Bundle();
-        bundle.putParcelable("generalnews", stringList);
+        bundle.putParcelable("generalnews", modelString);
         GeneralDetail generalDetail = new GeneralDetail();
         generalDetail.setArguments(bundle);
         frag = getSupportFragmentManager();

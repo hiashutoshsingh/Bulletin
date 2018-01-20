@@ -28,7 +28,7 @@ import java.util.List;
 public class Sport extends Fragment {
 
 
-    public List<StringList> sportsNews = new ArrayList<>();
+    public List<ModelString> sportsNews = new ArrayList<>();
     private RecyclerView recyclerView;
 
     public Sport() {
@@ -47,10 +47,10 @@ public class Sport extends Fragment {
         return view;
     }
 
-    public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
+    public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
         @Override
-        protected List<StringList> doInBackground(Integer... params) {
+        protected List<ModelString> doInBackground(Integer... params) {
 
             int count = params[0];
             int offset = params[1];
@@ -76,12 +76,12 @@ public class Sport extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    StringList stringList = new StringList(Parcel.obtain());
-                    stringList.authorName = listData.getString("author");
-                    stringList.headline = listData.getString("title");
-                    stringList.publishedTime = listData.getString("publishedAt");
+                    ModelString modelString = new ModelString(Parcel.obtain());
+                    modelString.authorName = listData.getString("author");
+                    modelString.headline = listData.getString("title");
+                    modelString.publishedTime = listData.getString("publishedAt");
 
-                    sportsNews.add(stringList);
+                    sportsNews.add(modelString);
                 }
 
             } catch (Exception e) {
@@ -93,7 +93,7 @@ public class Sport extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<StringList> result) {
+        protected void onPostExecute(List<ModelString> result) {
             super.onPostExecute(result);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -106,9 +106,9 @@ public class Sport extends Fragment {
     public class SportAdapter extends RecyclerView.Adapter<SportHolder> {
 
         int prevposition = 0;
-        private List<StringList> c;
+        private List<ModelString> c;
 
-        public SportAdapter(Sport context, List<StringList> result) {
+        public SportAdapter(Sport context, List<ModelString> result) {
             c = context.sportsNews;
 
         }
@@ -126,7 +126,7 @@ public class Sport extends Fragment {
         @Override
         public void onBindViewHolder(SportHolder holder, int position) {
 
-            StringList m = c.get(position);
+            ModelString m = c.get(position);
             holder.bindListName(m);
 
             if (position > prevposition) {
@@ -150,7 +150,7 @@ public class Sport extends Fragment {
         public TextView headlineTextview;
         public TextView authorTextview;
         public TextView timeTextview;
-        private StringList chimpList;
+        private ModelString chimpList;
 
         public SportHolder(View itemView) {
             super(itemView);
@@ -176,12 +176,12 @@ public class Sport extends Fragment {
 
         }
 
-        public void bindListName(StringList stringList) {
+        public void bindListName(ModelString modelString) {
 
-            chimpList = stringList;
-            headlineTextview.setText(stringList.headline);
-            authorTextview.setText(stringList.authorName);
-            timeTextview.setText(stringList.publishedTime);
+            chimpList = modelString;
+            headlineTextview.setText(modelString.headline);
+            authorTextview.setText(modelString.authorName);
+            timeTextview.setText(modelString.publishedTime);
 
         }
 

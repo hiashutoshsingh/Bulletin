@@ -3,7 +3,6 @@ package com.bulletin.theinvincible.bulletin;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,12 @@ public class BusinessDetail extends Fragment {
 
 
     public TextView authorSecond;
-    StringList stringList;
-    private TextView headlineSecond;
-    private TextView detailsSecond;
+    public TextView headlineSecond;
+    public TextView detailsSecond;
 
 
     public BusinessDetail() {
-//        BusinessDetail businessDetail=new BusinessDetail(bundle);
-//        businessDetail.setArguments(bundle);
-//        return businessDetail;
+
     }
 
 
@@ -29,9 +25,8 @@ public class BusinessDetail extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        stringList = (StringList) bundle.getParcelable("news");
-        Log.d("ashu","see this "+stringList.authorName);
+
+
 
     }
 
@@ -51,21 +46,8 @@ public class BusinessDetail extends Fragment {
         authorSecond = (TextView) view.findViewById(R.id.id_author_second_business);
         detailsSecond = (TextView) view.findViewById(R.id.id_details_second_business);
 
-        Log.d("ashu","see this again+ "+stringList.authorName);
-
-//        Bundle bundle = getArguments();
-//
-//        if (bundle == null || !bundle.containsKey("businessnews")) {
-//            throw new IllegalArgumentException("stringlist should not be null");
-//        }
-//        StringList stringList = bundle.getParcelable("businessnews");
-//        StringList stringList = ((MainActivity) getActivity()).getStringList();
-//        Log.d("ashu", "stringlist value business detail" + stringList);
 
 
-        authorSecond.setText(stringList.authorName);
-        headlineSecond.setText(stringList.headline);
-        detailsSecond.setText(stringList.newsDetail);
     }
 
 

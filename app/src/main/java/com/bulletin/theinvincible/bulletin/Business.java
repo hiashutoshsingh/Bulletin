@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,8 +27,8 @@ import java.util.List;
 
 public class Business extends Fragment {
 
-    public List<StringList> businessNews = new ArrayList<>();
-    StringList stringList;
+    public List<ModelString> businessNews = new ArrayList<>();
+    ModelString modelString;
     //    Transfer transfer;
     private RecyclerView recyclerView;
 
@@ -65,14 +64,14 @@ public class Business extends Fragment {
     }
 
 //    public interface Transfer {
-//         void send(StringList stringList);
+//         void send(ModelString modelString);
 //
 //    }
 
-    public class FetchLists extends AsyncTask<Integer, Void, List<StringList>> {
+    public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
         @Override
-        protected List<StringList> doInBackground(Integer... params) {
+        protected List<ModelString> doInBackground(Integer... params) {
 
             int count = params[0];
             int offset = params[1];
@@ -99,13 +98,13 @@ public class Business extends Fragment {
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
 
-                    stringList = new StringList(Parcel.obtain());
-                    stringList.authorName = listData.getString("author");
-                    stringList.headline = listData.getString("title");
-                    stringList.publishedTime = listData.getString("publishedAt");
-                    stringList.newsDetail = listData.getString("description");
+                    modelString = new ModelString(Parcel.obtain());
+                    modelString.authorName = listData.getString("author");
+                    modelString.headline = listData.getString("title");
+                    modelString.publishedTime = listData.getString("publishedAt");
+                    modelString.newsDetail = listData.getString("description");
 
-                    businessNews.add(stringList);
+                    businessNews.add(modelString);
                 }
 
             } catch (Exception e) {
@@ -115,7 +114,7 @@ public class Business extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<StringList> result) {
+        protected void onPostExecute(List<ModelString> result) {
             super.onPostExecute(result);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -128,9 +127,9 @@ public class Business extends Fragment {
     public class BusinessAdapter extends RecyclerView.Adapter<BusinessHolder> {
 
         int prevposition = 0;
-        private List<StringList> c;
+        private List<ModelString> c;
 
-        public BusinessAdapter(Business context, List<StringList> result) {
+        public BusinessAdapter(Business context, List<ModelString> result) {
             c = context.businessNews;
 
         }
@@ -147,9 +146,8 @@ public class Business extends Fragment {
         @Override
         public void onBindViewHolder(BusinessHolder holder, int position) {
 
-            StringList m = c.get(position);
+            ModelString m = c.get(position);
             holder.bindListName(m, position);
-
 
 
             if (position > prevposition) {
@@ -174,7 +172,7 @@ public class Business extends Fragment {
         public TextView authorTextview;
         public TextView timeTextview;
 
-        public BusinessHolder(View itemView) {
+        public BusinessHolder(final View itemView) {
             super(itemView);
 
             headlineTextview = (TextView) itemView.findViewById(R.id.id_headline);
@@ -185,32 +183,27 @@ public class Business extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    BusinessDetail businessDetail = new BusinessDetail();
+
+              String author=authorTextview.getText().toString().trim();
 
 
-                    Bundle bundle = new Bundle();
-                    stringList = new StringList(Parcel.obtain());
-                    Log.d("ashu","see "+stringList.authorName);
-                    bundle.putParcelable("news", stringList);
-                    businessDetail.setArguments(bundle);
-                    transaction.replace(R.id.content_frame, businessDetail);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    Log.d("ashu"," see the message is :  "+ modelString.authorName);
 
-// transfer.send(stringList);
-//                    Log.d("ashu","business onclick stringlist value: "+stringList);
+
+
+
+
+//
                 }
             });
 
         }
 
-        public void bindListName(final StringList stringList, final int position) {
+        public void bindListName(final ModelString modelString, final int position) {
 
-            headlineTextview.setText(stringList.headline);
-            authorTextview.setText(stringList.authorName);
-            timeTextview.setText(stringList.publishedTime);
+            headlineTextview.setText(modelString.headline);
+            authorTextview.setText(modelString.authorName);
+            timeTextview.setText(modelString.publishedTime);
 
         }
     }

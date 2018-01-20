@@ -15,7 +15,7 @@ public class GeneralDetail extends Fragment {
 
 
     public TextView authorSecond;
-    StringList stringList;
+    ModelString modelString;
     private TextView headlineSecond;
     private TextView detailsSecond;
 
@@ -43,10 +43,10 @@ public class GeneralDetail extends Fragment {
             throw new IllegalArgumentException("exception is thrown");
         }
 
-        stringList = bundle.getParcelable("generalnews");
-        Log.d("ashu", "stringlist value business detail" + stringList);
-        authorSecond.setText(stringList.authorName);
-        headlineSecond.setText(stringList.headline);
-        detailsSecond.setText(stringList.newsDetail);
+        modelString = bundle.getParcelable("generalnews");
+        Log.d("ashu", "stringlist value business detail" + modelString);
+        authorSecond.setText(modelString.authorName);
+        headlineSecond.setText(modelString.headline);
+        detailsSecond.setText(modelString.newsDetail);
     }
 }
