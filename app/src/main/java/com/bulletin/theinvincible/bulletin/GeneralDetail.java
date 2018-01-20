@@ -33,9 +33,9 @@ public class GeneralDetail extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        headlineSecond = (TextView) view.findViewById(R.id.id_headline_second);
-        authorSecond = (TextView) view.findViewById(R.id.id_author_second);
-        detailsSecond = (TextView) view.findViewById(R.id.id_details_second);
+        headlineSecond = (TextView) view.findViewById(R.id.id_headline_second_business);
+        authorSecond = (TextView) view.findViewById(R.id.id_author_second_business);
+        detailsSecond = (TextView) view.findViewById(R.id.id_details_second_business);
 
         Bundle bundle = getArguments();
 

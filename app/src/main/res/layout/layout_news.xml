@@ -7,11 +7,12 @@
     android:layout_margin="5dp"
     android:clickable="true"
     android:orientation="vertical"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="7dp"
     app:contentPadding="3dp">
 
     <RelativeLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,6 +42,7 @@
             android:textSize="15dp" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/id_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
