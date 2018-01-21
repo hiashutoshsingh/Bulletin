@@ -3,12 +3,10 @@ package com.bulletin.theinvincible.bulletin;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +27,6 @@ public class Business extends Fragment {
 
     public List<ModelString> businessNews = new ArrayList<>();
     ModelString modelString;
-    //    Transfer transfer;
     private RecyclerView recyclerView;
 
     public Business() {
@@ -57,16 +54,12 @@ public class Business extends Fragment {
         super.onAttach(context);
 
         try {
-//            transfer = (Transfer) context;
         } catch (ClassCastException e) {
             throw new ClassCastException("implemented the methods");
         }
     }
 
-//    public interface Transfer {
-//         void send(ModelString modelString);
-//
-//    }
+
 
     public class FetchLists extends AsyncTask<Integer, Void, List<ModelString>> {
 
@@ -98,7 +91,7 @@ public class Business extends Fragment {
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
 
-                    modelString = new ModelString(Parcel.obtain());
+                    modelString = new ModelString();
                     modelString.authorName = listData.getString("author");
                     modelString.headline = listData.getString("title");
                     modelString.publishedTime = listData.getString("publishedAt");
@@ -157,7 +150,6 @@ public class Business extends Fragment {
                 AnimationClass.animate(holder, false);
 
             }
-
         }
 
         @Override
@@ -183,17 +175,19 @@ public class Business extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-
               String author=authorTextview.getText().toString().trim();
+              String headline=headlineTextview.getText().toString().trim();
+              String time=timeTextview.getText().toString().trim();
+
+              BusinessDetail businessDetail=new BusinessDetail();
+              Bundle bundle=new Bundle();
+              bundle.putString("author",author);
+              bundle.putString("headline",headline);
+              bundle.putString("time",time);
+              businessDetail.setArguments(bundle);
+              getFragmentManager().beginTransaction().add(R.id.content_frame,businessDetail).addToBackStack(null).commit();
 
 
-                    Log.d("ashu"," see the message is :  "+ modelString.authorName);
-
-
-
-
-
-//
                 }
             });
 

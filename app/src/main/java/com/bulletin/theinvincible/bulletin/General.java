@@ -4,7 +4,6 @@ package com.bulletin.theinvincible.bulletin;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -98,7 +97,7 @@ public class General extends Fragment {
 
                 for (int i = 0; i < emailLists.length(); i++) {
                     JSONObject listData = (JSONObject) emailLists.get(i);
-                    modelString = new ModelString(Parcel.obtain());
+                    modelString = new ModelString();
                     modelString.authorName = listData.getString("author");
                     modelString.headline = listData.getString("title");
                     modelString.publishedTime = listData.getString("publishedAt");

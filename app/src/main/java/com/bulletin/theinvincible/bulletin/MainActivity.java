@@ -8,12 +8,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,  General.Transfer {
+        implements NavigationView.OnNavigationItemSelectedListener {
     FragmentManager frag;
     Bundle bundle;
     ModelString mModelString;
@@ -41,9 +40,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -89,27 +90,5 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-//    @Override
-//    public void send(ModelString modelString) {
-////        Log.d("ashu", "stronglist value in mainactivity business " + modelString);
-////        bundle = new Bundle();
-////        bundle.putParcelable("businessnews", modelString);
-//        BusinessDetail businessDetail = new BusinessDetail();
-////        businessDetail.setArguments(bundle);
-//        frag = getSupportFragmentManager();
-//        frag.beginTransaction().replace(R.id.content_frame, businessDetail).commit();
-//    }
 
-
-    @Override
-    public void senda(ModelString modelString) {
-        Log.d("ashu", "stronglist value in mainactivity genral " + modelString);
-        bundle = new Bundle();
-        bundle.putParcelable("generalnews", modelString);
-        GeneralDetail generalDetail = new GeneralDetail();
-        generalDetail.setArguments(bundle);
-        frag = getSupportFragmentManager();
-        frag.beginTransaction().replace(R.id.content_frame, generalDetail).commit();
-
-    }
 }

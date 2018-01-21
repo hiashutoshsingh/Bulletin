@@ -15,11 +15,14 @@ public class BusinessDetail extends Fragment {
     public TextView headlineSecond;
     public TextView detailsSecond;
 
+    String author;
+    String headline;
+    String time;
+
 
     public BusinessDetail() {
 
     }
-
 
 
     @Override
@@ -34,6 +37,12 @@ public class BusinessDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_business_detail, container, false);
+
+        author = getArguments().getString("author");
+        headline =getArguments().getString("headline");
+        time =getArguments().getString("time");
+
+
         return view;
     }
 
@@ -47,8 +56,14 @@ public class BusinessDetail extends Fragment {
         detailsSecond = (TextView) view.findViewById(R.id.id_details_second_business);
 
 
+        authorSecond.setText(author);
+        headlineSecond.setText(headline);
+        detailsSecond.setText(time);
+
 
     }
+
+
 
 
 }
